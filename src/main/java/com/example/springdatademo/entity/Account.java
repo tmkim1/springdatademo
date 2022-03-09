@@ -1,4 +1,6 @@
-package com.example.springdatademo;
+package com.example.springdatademo.entity;
+
+import com.example.springdatademo.vo.Address;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,7 +18,6 @@ public class Account {
     private String username;
 
     private String password;
-
 
     //foreign key를 가진 엔티티가 owner가 된다 + 엔티티간 서로 @OneToMany, @ManyToOne만 해준다고 해서 양 방향 관계가 되는 것이 아님,
     //2개의 단방향 관계 => 양방향임을 알려주기 위해서 mappedBy를 사용한다.
@@ -90,5 +91,10 @@ public class Account {
     public void addStudy(Study study) {
         this.getStudies().add(study);
         study.setOwner(this);
+    }
+
+    public void removeStudy(Study study) {
+        this.getStudies().remove(study);
+        study.setOwner(null);
     }
 }

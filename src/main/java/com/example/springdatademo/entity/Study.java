@@ -1,4 +1,6 @@
-package com.example.springdatademo;
+package com.example.springdatademo.entity;
+
+import com.example.springdatademo.entity.Account;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

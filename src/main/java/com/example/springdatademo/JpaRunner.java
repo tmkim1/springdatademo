@@ -1,5 +1,9 @@
 package com.example.springdatademo;
 
+import com.example.springdatademo.entity.Post;
+import com.example.springdatademo.repository.PostRepository;
+import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -15,21 +19,31 @@ public class JpaRunner implements ApplicationRunner {
     @PersistenceContext
     EntityManager em;
 
+    @Autowired
+    PostRepository postRepository;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Account account = new Account();
-        account.setUsername("taemin");
-        account.setPassword("passwordJpa");
+//        Post post = new Post();
+//        post.setTitle("Spring Data JPA");
+//
+//        Comment comment = new Comment();
+//        comment.setComment("스터디 모집합니다.");
+//        post.addComment(comment );
+//
+//        Comment comment1 = new Comment();
+//        comment1.setComment("지역은 서울");
+//        post.addComment(comment1);
+//
+//        Session session = em.unwrap(Session.class);
+//
+//        session.save(post);
 
-        Study study = new Study();
-        study.setName("JPA Study");
+//        Post post2 = session.get(Post.class, 1l);
+//        System.out.println("post.getTitle() = " + post2.getTitle());
 
-        //양방향이라면 한 묶음으로 둘 다 정보를 가지고 있어야 함. (서로의 reference가 필요)
-//        account.getStudies().add(study);
-//        study.setOwner(account);
-        //convenient method를 생성
-        account.addStudy(study);
+//        JPA ===>
+        postRepository.findAll().forEach(System.out::println);
 
-        em.persist(account);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.springdatademo;
+package com.example.springdatademo.vo;
 
 import javax.persistence.Embeddable;
 
