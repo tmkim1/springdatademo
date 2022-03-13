@@ -1,8 +1,13 @@
 package com.example.springdatademo.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 public class Comment {
 
     @Id
@@ -15,27 +20,6 @@ public class Comment {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public Long getId() {
-        return id;
-    }
+    private Integer likeCount;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
 }
