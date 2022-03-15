@@ -11,7 +11,8 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
-public interface PostRepository extends JpaRepository<Post, Long> {
+// -- abstract는 상속을 하나만 받을 수 있지만 Interface는 다중 상속이 가능하다.
+public interface PostRepository extends JpaRepository<Post, Long>, PostCustomRepository {
     Page<Post> findByTitleContains(String title, Pageable pageable);
 
     long countByTitleContains(String spring);

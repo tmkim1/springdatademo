@@ -23,6 +23,23 @@ public class PostRepositoryTest {
     PostRepository postRepository;
 
     @Test
+    public void customRepository() {
+
+        //Given
+        String title = "custom";
+        Post post = new Post();
+        post.setTitle(title);
+
+        //When
+        postRepository.save(post);
+        List<Post> customPosts = postRepository.findMyPost();
+
+        //Then
+        assertThat(customPosts.size()).isEqualTo(1);
+        assertThat(customPosts.get(0).getTitle()).isEqualTo(title);
+    }
+
+    @Test
     @Rollback(value = false)
     public void crudRepository() {
         //Given
