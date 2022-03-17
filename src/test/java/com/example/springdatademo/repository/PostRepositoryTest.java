@@ -32,7 +32,7 @@ public class PostRepositoryTest {
 
         //When
         postRepository.save(post);
-        List<Post> customPosts = postRepository.findMyPost();
+        List<Post> customPosts = postRepository.findAll();
 
         //Then
         assertThat(customPosts.size()).isEqualTo(1);
@@ -47,10 +47,13 @@ public class PostRepositoryTest {
         post.setTitle("Hello Spring Boot Common");
         assertThat(post.getId()).isNull();
 
+        assertThat(postRepository.contains(post)).isFalse(); //Transient
+
         //When
         Post newPost = postRepository.save(post);
 
         //Then
+        assertThat(postRepository.contains(newPost)).isTrue(); //Persist
         assertThat(newPost.getId()).isNotNull();
 
         //When
