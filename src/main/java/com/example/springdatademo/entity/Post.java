@@ -1,13 +1,25 @@
 package com.example.springdatademo.entity;
 
-import com.example.springdatademo.entity.Comment;
+import com.example.springdatademo.commands.PostPublishedEvent;
+import org.springframework.data.domain.AbstractAggregateRoot;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 도메인 이벤트
+ * Entity로 설정 해놓은 도메인에서 상태를 변경하는 행위에 대한 이벤트 기능을 구현
+ *
+ * ApplicationContext는 BeanFactory 상속, ApplicationEventPublisher를 상속 받고 있음
+ *
+ * AbstractAggregateRoot<Post> => 도메인 이벤트를 모와 놓는 곳, 이벤트를 비우는 곳에 대한 메서드가 존재
+ *
+ */
+
+
 @Entity
-public class Post {
+public class Post extends AbstractAggregateRoot<Post> {
 
     @Id @GeneratedValue
     private Long id;
@@ -30,7 +42,7 @@ public class Post {
         this.id = id;
     }
 
-    public String getTitle() {
+    public String  getTitle() {
         return title;
     }
 
@@ -51,5 +63,12 @@ public class Post {
         return "Post{" +
                 "title='" + title + '\'' +
                 '}';
+    }
+
+    public Post publish() {
+        //AbstractAggr egateRoot를 상속받아 registerEvent 메서드로 이벤트를 바로 주입하여 사용 가능
+        //registerEvent => domainEvents.add(event);
+        this.registerEvent(new PostPublishedEvent(this));
+        return this;
     }
 }
